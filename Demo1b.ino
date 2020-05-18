@@ -36,72 +36,63 @@ int main()
   
   while(1){
 
-   //sensor[1] = var[8] //sensor 4
-   sensor[2] = var[6]; //sensor 4
-   sensor[3] = var[7]; //sensor 4
+   //sensor[1] = var[8] //sensor 1
+   sensor[2] = var[6]; //sensor 2
+   sensor[3] = var[7]; //sensor 3
    sensor[4] = var[8]; //sensor 4
-   sensor[5] = var[11]; //sensor 4
-   sensor[6] = var[10]; //sensor 4
-   sensor[7] = var[9]; //sensor 4
-   //sensor[8] = var[] //sensor 4
+   sensor[5] = var[11]; //sensor 5
+   sensor[6] = var[10]; //sensor 6
+   sensor[7] = var[9]; //sensor 7
+   //sensor[8] = var[] //sensor 8
 
 
    // Going Straight
      if (sensor[4]>THRESHOLD && sensor[5]>THRESHOLD && sensor[3]<THRESHOLD && sensor[6]<THRESHOLD ) {
-      motorSpeeds[0] = 120; // 50
-      motorSpeeds[1] = 120; // 50
+      motorSpeeds[0] = 75; // 50
+      motorSpeeds[1] = 75; // 50
      }
+     
+     // Cross-Road
+      else if (sensor[2]>THRESHOLD && sensor[3]>THRESHOLD && sensor[4]>THRESHOLD && sensor[5]>THRESHOLD && sensor[6]>THRESHOLD && sensor[7]>THRESHOLD) {
+      motorSpeeds[0] = 75;
+      motorSpeeds[1] = 75;
+      }
      
      //Turn Right
      else if (sensor[4]<THRESHOLD&&sensor[5]>THRESHOLD||sensor[6]>THRESHOLD)  {
          
-            motorSpeeds[0] = 120; // 40
-            motorSpeeds[1] = 40; // 25
+            motorSpeeds[0] = 120; // 120
+            motorSpeeds[1] = 40; // 40
      }
      else if (sensor[4]<THRESHOLD && sensor[5]<THRESHOLD && sensor[7]>THRESHOLD||sensor[6]>THRESHOLD)  {
        
-          motorSpeeds[0] = 120; //50
-          motorSpeeds[1] = 0; // 20
+          motorSpeeds[0] = 120; //120
+          motorSpeeds[1] = 0; //0
      }
 
      //turn left
      else if(sensor[5]<THRESHOLD&&sensor[4]>THRESHOLD||sensor[3]>THRESHOLD){
        
-          motorSpeeds[0] = 40;
-          motorSpeeds[1] = 120;
+          motorSpeeds[0] = 40; //40
+          motorSpeeds[1] = 120; //120
      }
      else if (sensor[5]<THRESHOLD && sensor[4]<THRESHOLD && sensor[2]>THRESHOLD||sensor[3]>THRESHOLD)  {
         
-          motorSpeeds[0] = 0;
-          motorSpeeds[1] = 120;
+          motorSpeeds[0] = 0; //0
+          motorSpeeds[1] = 120; //120
       }
 
       else if (sensor[3]<THRESHOLD && sensor[4]<THRESHOLD && sensor[5]<THRESHOLD && sensor[6]<THRESHOLD && sensor[7]<THRESHOLD && sensor[2]<THRESHOLD) {
       
-      motorSpeeds[0] = STOP;
-      motorSpeeds[1] = STOP;
+      motorSpeeds[0] = STOP; //STOP
+      motorSpeeds[1] = STOP; //STOP
       }
       setMotorSpeeds(motorSpeeds);
+
       
     
   }return 0;
 }
-
-
-
-
-//ISR(ADC_vect)           
-//  {
-// //Count up to n channels
-// (var[i]) = ADCH;
-// 
-//  if (++i >= ADC_CHANNELS)
-//      {i=0;} 
-//
-//  ADMUX = (1<<ADLAR) | (1<<REFS1)|(1<<REFS0)|i; //Select ADC Channel
-//  ADCSRA |= (1 << ADSC);    // Start A2D Conversions 
-//  //ADCSRB |= (1<<MUX5);
-//  } 
    
 ISR(ADC_vect)           
   {
@@ -128,8 +119,3 @@ ISR(ADC_vect)
  
   ADCSRA |= (1 << ADSC);    // Start A2D Conversions 
   } 
-
-
-
-
- 
