@@ -1,4 +1,4 @@
-#define F_CPU 16000000UL
+  #define F_CPU 16000000UL
 
 #include <QTRSensors.h>
 #include <avr/io.h>
@@ -48,25 +48,29 @@ int main()
 
    // Going Straight
      if (sensor[4]>THRESHOLD && sensor[5]>THRESHOLD && sensor[3]<THRESHOLD && sensor[6]<THRESHOLD ) {
-      motorSpeeds[0] = 75; // 50
-      motorSpeeds[1] = 75; // 50
+      motorSpeeds[0] = 120; // 120
+      motorSpeeds[1] = 120; // 120
      }
      
      // Cross-Road
       else if (sensor[2]>THRESHOLD && sensor[3]>THRESHOLD && sensor[4]>THRESHOLD && sensor[5]>THRESHOLD && sensor[6]>THRESHOLD && sensor[7]>THRESHOLD) {
-      motorSpeeds[0] = 75;
-      motorSpeeds[1] = 75;
+      motorSpeeds[0] = 120; //120
+      motorSpeeds[1] = 120; //120
       }
      
      //Turn Right
      else if (sensor[4]<THRESHOLD&&sensor[5]>THRESHOLD||sensor[6]>THRESHOLD)  {
          
-            motorSpeeds[0] = 120; // 120
+            motorSpeeds[0] = 100; // 100
             motorSpeeds[1] = 40; // 40
      }
      else if (sensor[4]<THRESHOLD && sensor[5]<THRESHOLD && sensor[7]>THRESHOLD||sensor[6]>THRESHOLD)  {
        
-          motorSpeeds[0] = 120; //120
+          motorSpeeds[0] = 100; //100
+          motorSpeeds[1] = 0; //0
+     }
+     else if (sensor[2]<THRESHOLD && sensor[3]<THRESHOLD && sensor[4]<THRESHOLD && sensor[5]<THRESHOLD && sensor[7]<THRESHOLD && sensor[6]<THRESHOLD) {
+          motorSpeeds[0] = 100; //100
           motorSpeeds[1] = 0; //0
      }
 
@@ -74,12 +78,12 @@ int main()
      else if(sensor[5]<THRESHOLD&&sensor[4]>THRESHOLD||sensor[3]>THRESHOLD){
        
           motorSpeeds[0] = 40; //40
-          motorSpeeds[1] = 120; //120
+          motorSpeeds[1] = 100; //100
      }
      else if (sensor[5]<THRESHOLD && sensor[4]<THRESHOLD && sensor[2]>THRESHOLD||sensor[3]>THRESHOLD)  {
         
           motorSpeeds[0] = 0; //0
-          motorSpeeds[1] = 120; //120
+          motorSpeeds[1] = 100; //100
       }
 
       else if (sensor[3]<THRESHOLD && sensor[4]<THRESHOLD && sensor[5]<THRESHOLD && sensor[6]<THRESHOLD && sensor[7]<THRESHOLD && sensor[2]<THRESHOLD) {
@@ -118,4 +122,4 @@ ISR(ADC_vect)
   
  
   ADCSRA |= (1 << ADSC);    // Start A2D Conversions 
-  } 
+  }
